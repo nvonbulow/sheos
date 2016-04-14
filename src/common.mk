@@ -12,11 +12,13 @@ LIBS_PARAMS = $(foreach d, $(LIBS), -l$d)
 
 SYSROOT_FLAGS = --sysroot="$(BASE_DIR)" -isystem=/usr/include
 
+WARNING_FLAGS = -Wno-write-strings -Wall -Wextra
+
 CC := $(ARCH)-gcc
-CC_FLAGS = $(SYSROOT_FLAGS) $(DEFINES_PARAMS) -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+CC_FLAGS = $(SYSROOT_FLAGS) $(DEFINES_PARAMS) -std=gnu99 -ffreestanding -O2 $(WARNING_FLAGS)
 
 CXX := $(ARCH)-g++
-CXX_FLAGS = $(SYSROOT_FLAGS) $(DEFINES_PARAMS) -ffreestanding -O2 -Wall -Wextra -fno-exceptions -fno-rtti
+CXX_FLAGS = $(SYSROOT_FLAGS) $(DEFINES_PARAMS) -ffreestanding -O2 -fno-exceptions -fno-rtti $(WARNING_FLAGS)
 
 LD := $(ARCH)-gcc
 LD_FLAGS = $(SYSROOT_FLAGS) -fbuiltin -ffreestanding -O2 -nostdlib -fno-use-linker-plugin $(LIBS_PARAMS)

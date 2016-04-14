@@ -36,3 +36,6 @@
 
 # sysroot
 usr/
+
+# qemu trace files
+trace*

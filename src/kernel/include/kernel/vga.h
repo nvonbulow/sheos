@@ -1,10 +1,14 @@
 #include <stdint.h>
 
-#ifndef __SYS_VGA_H__
-#define __SYS_VGA_H__
+#ifndef __KERNEL_VGA_H__
+#define __KERNEL_VGA_H__
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /* Hardware text mode color constants. */
-enum vga_color {
+enum vga_color_const {
 	COLOR_BLACK = 0,
 	COLOR_BLUE = 1,
 	COLOR_GREEN = 2,
@@ -22,15 +26,17 @@ enum vga_color {
 	COLOR_LIGHT_BROWN = 14,
 	COLOR_WHITE = 15,
 };
- 
-inline uint8_t make_color(enum vga_color fg, enum vga_color bg) {
+
+typedef uint8_t vga_color;
+
+#define VGA_COLOR(fg, bg) (fg | bg << 4)
+
+inline vga_color make_vga_color(enum vga_color_const fg, enum vga_color_const bg) {
 	return fg | bg << 4;
 }
- 
-inline uint16_t make_vgaentry(char c, uint8_t color) {
-	uint16_t c16 = c;
-	uint16_t color16 = color;
-	return c16 | color16 << 8;
+
+#ifdef __cplusplus
 }
+#endif
 
 #endif //__SYS_VGA_H__
