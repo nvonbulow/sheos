@@ -28,10 +28,14 @@ void puts(const char* str) {
 #endif //__IKERNEL__
 }
 
-void print(const char* str, size_t length) {
+void _print(const char* str, size_t length) {
 	for(size_t i = 0; i < length; i++) {
 		putchar(str[i]);
 	}
+}
+
+void print(const char* str) {
+	_print(str, strlen(str));
 }
 
 int printf(const char* __restrict format, ...) {
@@ -41,7 +45,9 @@ int printf(const char* __restrict format, ...) {
 	int written = 0;
 	size_t amount;
 	bool rejected_bad_specifier = false;
- 
+	
+	char i2str[17];
+	
 	while(*format != '\0') {
 		if(*format != '%') {
 		print_c:
@@ -49,7 +55,7 @@ int printf(const char* __restrict format, ...) {
 			while (format[amount] && format[amount] != '%') {
 				amount++;
 			}
-			print(format, amount);
+			_print(format, amount);
 			format += amount;
 			written += amount;
 			continue;
@@ -71,19 +77,24 @@ int printf(const char* __restrict format, ...) {
 		if(*format == 'c') {
 			format++;
 			char c = (char) va_arg(parameters, int /* char promotes to int */);
-			print(&c, sizeof(c));
+			_print(&c, sizeof(c));
 		}
 		else if (*format == 's') {
 			format++;
 			const char* s = va_arg(parameters, const char*);
-			print(s, strlen(s));
+			_print(s, strlen(s));
 		}
 		else if(*format == 'i' || *format == 'd') {
 			format++;
 			int i = va_arg(parameters, int);
-			char i2str[17];
 			itoa(i, i2str, 10);
-			print(i2str, strlen(i2str));
+			_print(i2str, strlen(i2str));
+		}
+		else if(*format == 'x') {
+			format++;
+			int i = va_arg(parameters, int);
+			itoa(i, i2str, 16);
+			_print(i2str, strlen(i2str));
 		}
 		else {
 			goto incomprehensible_conversion;

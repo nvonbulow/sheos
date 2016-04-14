@@ -96,8 +96,6 @@ void tty_shift(int lines) {
 		//Remember lines is negative currently
 		copy_dst = -lines * VGA_WIDTH;
 		
-		
-		
 		for(size_t i = copy_src + copy_length - 1; i > copy_src; i--) {
 			tty_buffer[copy_dst + i] = tty_buffer[copy_src + i];
 		}
@@ -107,21 +105,23 @@ void tty_shift(int lines) {
 		}
 	}
 	
-	tty_row -= lines;
-	if(tty_row < 0) {
+	if(((int) tty_row) - lines < 0) {
 		tty_row = 0;
 	}
-	else if(tty_row >= VGA_HEIGHT) {
+	else if(((int) tty_row) - lines >= VGA_HEIGHT) {
 		tty_row = VGA_HEIGHT - 1;
+	}
+	else {
+		tty_row -= lines;
 	}
 }
 
 void tty_newline() {
 	tty_row++;
 	tty_column = 0;
-	if(tty_row == VGA_HEIGHT) {
+	if(tty_row >= VGA_HEIGHT) {
 		tty_shift(1);
-		tty_row--;
+		tty_row = VGA_HEIGHT - 1;
 	}
 }
 
