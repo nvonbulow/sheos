@@ -1,6 +1,6 @@
 
 AS := $(ARCH)-as
-AS_FLAGS := -I$(BASE_DIR)/multiboot --defsym ASM_FILE=
+AS_FLAGS := -I$(BASE_DIR)/multiboot
 
 INCLUDE_FILES = $(shell find "$(BASE_DIR)/usr/include" -name "*.h" -type f -print0)
 
@@ -18,7 +18,7 @@ CC := $(ARCH)-gcc
 CC_FLAGS = $(SYSROOT_FLAGS) $(DEFINES_PARAMS) -std=gnu99 -ffreestanding -O2 $(WARNING_FLAGS)
 
 CXX := $(ARCH)-g++
-CXX_FLAGS = $(SYSROOT_FLAGS) $(DEFINES_PARAMS) -ffreestanding -O2 -fno-exceptions -fno-rtti $(WARNING_FLAGS)
+CXX_FLAGS = $(SYSROOT_FLAGS) $(DEFINES_PARAMS) -std=c++0x -ffreestanding -O2 -fno-exceptions -fno-rtti $(WARNING_FLAGS)
 
 LD := $(ARCH)-gcc
 LD_FLAGS = $(SYSROOT_FLAGS) -fbuiltin -ffreestanding -O2 -nostdlib -fno-use-linker-plugin $(LIBS_PARAMS)

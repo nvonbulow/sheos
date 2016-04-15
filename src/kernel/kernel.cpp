@@ -1,4 +1,5 @@
 #include <kernel/tty.h>
+#include <kernel/multiboot_info.h>
 #include <stdio.h>
 #include <multiboot.h>
 
@@ -10,10 +11,9 @@ extern "C" void kernel_main(unsigned long magic, multiboot_info_t* mbi) {
 	tty_init();
 	
 	if(magic != MULTIBOOT_BOOTLOADER_MAGIC) {
-		printf("Invalid multiboot magic number: 0x%x\n", (unsigned) magic);
+		printf("Please load the kernel with a multiboot compliant bootloader!\n", (unsigned) magic);
 		return;
 	}
+	multiboot mboot(mbi);
 	
-	printf("Multiboot magic number is valid: 0x%x\n", (unsigned) magic);
-	printf("The multiboot info structure is located at 0x%x\n", (unsigned) mbi);
 }

@@ -11,6 +11,9 @@ all:
 run: all
 	$(QEMU) -kernel src/kernel.elf
 	rm trace*
+
+strip: all
+	$(ARCH)-strip src/kernel.elf
 	
 clean:
 	find src -name "*.o" -type f -exec rm {} \;
