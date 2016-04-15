@@ -1,6 +1,6 @@
 
 AS := $(ARCH)-as
-AS_FLAGS := 
+AS_FLAGS := -I$(BASE_DIR)/multiboot --defsym ASM_FILE=
 
 INCLUDE_FILES = $(shell find "$(BASE_DIR)/usr/include" -name "*.h" -type f -print0)
 
