@@ -1,1 +1,1 @@
-OBJECTS := $(OBJECTS) boot/boot.o
+OBJECTS += boot/boot.o

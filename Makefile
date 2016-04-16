@@ -22,3 +22,4 @@ clean:
 	find src -name "*.a" -type f -exec rm {} \;
 	rm -rf usr/
 	rm -rf trace*
+	rm -rf src/sysroot

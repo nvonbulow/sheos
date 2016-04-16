@@ -33,7 +33,6 @@ class multiboot {
 		
 		uint32_t get_boot_device();
 		char* get_command_line();
-	
 };
 
 #endif //__cplusplus
