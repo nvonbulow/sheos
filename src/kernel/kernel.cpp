@@ -53,10 +53,4 @@ extern "C" void kernel_main(unsigned long magic, multiboot_info_t* mbi) {
 	if(mboot.has_memory_map()) {
 		print_memory_map(mbi);
 	}
-	
-	//Set the VGA mode to color
-	//vga_port_misc_set_flags(VGA_MISC_IO_AS, 1);
-	
-	//Disables the text mode cursor
-	vga_port_crtc_set(0xA, 1<<5);
 }

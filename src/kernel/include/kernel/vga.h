@@ -106,15 +106,88 @@ uint8_t vga_port_misc_get_flags(uint8_t flags);
 #define VGA_CRTC_COLOR_ADDRESS_PORT      0x3D4
 #define VGA_CRTC_COLOR_DATA_PORT         0x3D5
 
-//Returns the port address according to color mode
-uint16_t vga_port_crtc_get_address_port();
-//Returns the port address according to color mode
-uint16_t vga_port_crtc_get_data_port();
-
 //Gets a value stored in the VGA crt controller
 uint8_t vga_port_crtc_get(uint8_t register_address);
 //Sets a value to the VGA crt controller
 void vga_port_crtc_set(uint8_t register_address, uint8_t value);
+
+//The CRTC Registers
+//See http://www.osdever.net/FreeVGA/vga/crtcreg.htm for more information
+
+//Horizontal Total
+#define VGA_CRTC_HTR 0x00
+
+//End Horizontal Display
+#define VGA_CRTC_EHD 0x01
+
+//Start Horizontal Blanking
+#define VGA_CRTC_SHB 0x02
+
+//End Horizontal Blanking
+#define VGA_CRTC_EHB 0x03
+
+//Start Horizontal Retrace
+#define VGA_CRTC_SHR 0x04
+
+//End Horizontal Retrace
+#define VGA_CRTC_EHR 0x05
+
+//Vertical Total
+#define VGA_CRTC_VTR 0x06
+
+//Overflow
+#define VGA_CRTC_OVR 0x07
+
+//Preset Row Scan
+#define VGA_CRTC_PRS 0x08
+
+//Maximum Scan Line
+#define VGA_CRTC_MSL 0x09
+
+//Cursor Start
+#define VGA_CRTC_CSR 0x0A
+
+//Cursor End
+#define VGA_CRTC_CER 0x0B
+
+//Start Address High
+#define VGA_CRTC_SAH 0x0C
+
+//Start Address Low
+#define VGA_CRTC_SAL 0x0D
+
+//Cursor Location High
+#define VGA_CRTC_CLH 0x0E
+
+//Cursor Location Low
+#define VGA_CRTC_CLL 0x0F
+
+//Vertical Retrace Start
+#define VGA_CRTC_VRS 0x10
+
+//Vertical Retrace End
+#define VGA_CRTC_VRE 0x11
+
+//Vertical Display End
+#define VGA_CRTC_VDE 0x12
+
+//Offset Register
+#define VGA_CRTC_OFR 0x13
+
+//Underline Location
+#define VGA_CRTC_ULR 0x14
+
+//Start Vertical Blanking
+#define VGA_CRTC_SVB 0x15
+
+//End Vertical Blanking
+#define VGA_CRTC_EVB 0x16
+
+//Mode Control
+#define VGA_CRTC_MCR 0x17
+
+//Line Compare
+#define VGA_CRTC_LCR 0x18
 
 #ifdef __cplusplus
 }

@@ -3,6 +3,11 @@
 
 //http://www.osdever.net/FreeVGA/vga/crtcreg.htm
 
+//Returns the port address according to color mode
+static uint16_t vga_port_crtc_get_address_port();
+//Returns the port address according to color mode
+static uint16_t vga_port_crtc_get_data_port();
+
 //Sets all the specified flags to the boolean value
 void vga_port_misc_set_flags(uint8_t flags, bool value) {
 	uint8_t port_value = _inb(VGA_PORT_MISC_IN);

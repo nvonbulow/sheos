@@ -16,6 +16,15 @@ size_t tty_column = 0;
 //The current color of the terminal
 vga_color tty_color = VGA_COLOR(COLOR_LIGHT_GREY, COLOR_BLACK);
 
+void tty_set_cursor(size_t row, size_t column) {
+	tty_row = row;
+	tty_column = column;
+	
+	uint16_t cursor_location = (row * VGA_WIDTH) + column;
+	vga_port_crtc_set(VGA_CRTC_CLL, (uint8_t) (cursor_location & 0xFF));
+	vga_port_crtc_set(VGA_CRTC_CLH, (uint8_t) ((cursor_location >> 8) & 0xFF));
+}
+
 //Creates a data structure suitable to put into the VGA buffer
 inline uint16_t make_vga_entry(char c, vga_color color) {
 	uint16_t c16 = c;
@@ -25,8 +34,7 @@ inline uint16_t make_vga_entry(char c, vga_color color) {
 
 void tty_init() {
 	tty_color = VGA_COLOR(COLOR_LIGHT_GREY, COLOR_BLACK);
-	tty_column = 0;
-	tty_row = 0;
+	tty_set_cursor(0, 0);
 	tty_buffer = (uint16_t*) 0xB8000;
 	for(size_t y = 0; y < VGA_HEIGHT; y++) {
 		for(size_t x = 0; x < VGA_WIDTH; x++) {
@@ -53,6 +61,7 @@ void tty_backspace() {
 	tty_column--;
 	//Clear the last character
 	tty_putcharat(' ', tty_color, tty_row, tty_column);
+	tty_set_cursor(tty_row, tty_column);
 }
 
 //Shifts the buffer up x lines
@@ -114,6 +123,8 @@ void tty_shift(int lines) {
 	else {
 		tty_row -= lines;
 	}
+	
+	tty_set_cursor(tty_row, tty_column);
 }
 
 void tty_newline() {
@@ -123,6 +134,7 @@ void tty_newline() {
 		tty_shift(1);
 		tty_row = VGA_HEIGHT - 1;
 	}
+	tty_set_cursor(tty_row, tty_column);
 }
 
 //Prints a single character
@@ -143,6 +155,7 @@ char tty_putchar(const char c) {
 	if(++tty_column == VGA_WIDTH) {
 		tty_newline();
 	}
+	tty_set_cursor(tty_row, tty_column);
 	return c;
 }
 
