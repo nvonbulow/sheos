@@ -43,3 +43,7 @@ src/sysroot
 
 # qemu trace files
 trace*
+
+# eclipse
+/.settings
+private.xml

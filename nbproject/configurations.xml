@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="97">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <df root="." name="0">
+      <df name="src">
+        <df name="boot">
+          <in>boot.s</in>
+        </df>
+        <df name="kernel">
+          <in>kernel.cpp</in>
+          <in>multiboot_info.cpp</in>
+          <in>tty.c</in>
+          <in>vga.c</in>
+        </df>
+        <df name="libc">
+          <in>stdio.c</in>
+          <in>stdlib.c</in>
+          <in>string.c</in>
+        </df>
+      </df>
+    </df>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+      <itemPath>nbproject/private/launcher.properties</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceFolderFilter>^(nbproject)$</sourceFolderFilter>
+  <sourceRootList>
+    <Elem>.</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Default" type="0">
+      <toolsSet>
+        <compilerSet>Cygwin_i686-elf|Cygwin</compilerSet>
+        <dependencyChecking>false</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <codeAssistance>
+      </codeAssistance>
+      <makefileType>
+        <makeTool>
+          <buildCommandWorkingDir>.</buildCommandWorkingDir>
+          <buildCommand>${MAKE} -f Makefile</buildCommand>
+          <cleanCommand>${MAKE} -f Makefile clean</cleanCommand>
+          <executablePath></executablePath>
+          <cTool>
+            <standard>10</standard>
+            <incDir>
+              <pElem>src/kernel/include</pElem>
+              <pElem>src/libc/include</pElem>
+              <pElem>multiboot</pElem>
+            </incDir>
+            <preprocessorList>
+              <Elem>__IKERNEL__</Elem>
+            </preprocessorList>
+          </cTool>
+          <ccTool>
+            <standard>8</standard>
+            <incDir>
+              <pElem>multiboot</pElem>
+              <pElem>src/kernel/include</pElem>
+              <pElem>src/libc/include</pElem>
+            </incDir>
+            <preprocessorList>
+              <Elem>__IKERNEL__</Elem>
+            </preprocessorList>
+          </ccTool>
+        </makeTool>
+        <preBuild>
+          <preBuildCommandWorkingDir>.</preBuildCommandWorkingDir>
+          <preBuildCommand></preBuildCommand>
+        </preBuild>
+      </makefileType>
+      <item path="src/boot/boot.s" ex="false" tool="4" flavor2="0">
+      </item>
+      <item path="src/kernel/kernel.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/kernel/multiboot_info.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/kernel/tty.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/kernel/vga.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/libc/stdio.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/libc/stdlib.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/libc/string.c" ex="false" tool="0" flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>

@@ -12,6 +12,10 @@ run: all
 	$(QEMU) -kernel src/kernel.elf
 	rm trace*
 
+debug: all
+	$(QEMU) -kernel src/kernel.elf -s -S
+	rm trace*
+
 strip: all
 	$(ARCH)-strip src/kernel.elf
 	

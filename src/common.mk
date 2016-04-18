@@ -22,7 +22,7 @@ CC := $(ARCH)-gcc
 CC_FLAGS := $(SYSROOT_FLAGS) $(DEFINES_PARAMS) $(INCLUDES_PARAMS) -std=gnu11 -ffreestanding -O2 $(WARNING_FLAGS)
 
 CXX := $(ARCH)-g++
-CXX_FLAGS := $(SYSROOT_FLAGS) $(DEFINES_PARAMS) $(INCLUDES_PARAMS) -std=gnu++0x -ffreestanding -O2 -fno-exceptions -fno-rtti $(WARNING_FLAGS)
+CXX_FLAGS := $(SYSROOT_FLAGS) $(DEFINES_PARAMS) $(INCLUDES_PARAMS) -std=gnu++11 -ffreestanding -O2 -fno-exceptions -fno-rtti $(WARNING_FLAGS)
 
 LD := $(ARCH)-gcc
 LD_FLAGS := $(SYSROOT_FLAGS) -fbuiltin -ffreestanding -O2 -nostdlib $(LIBS_PARAMS)
@@ -37,7 +37,7 @@ subdirs: sub2 $(SUBDIRS)
 	
 
 sub2: $(SUBDIRS_REQUIREMENTS)
-	@echo g
+	
 
 $(SUBDIRS):
 	$(MAKE) -C $@ all

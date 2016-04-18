@@ -38,6 +38,7 @@ inline vga_color make_vga_color(enum vga_color_const fg, enum vga_color_const bg
 }
 
 //The VGA Miscellaneous Output Registers
+
 #define VGA_PORT_MISC_OUT 0x3C2
 #define VGA_PORT_MISC_IN  0x3CC
 
