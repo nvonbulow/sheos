@@ -46,7 +46,7 @@ extern "C" void kernel_main(unsigned long magic, multiboot_info_t* mbi) {
 	tty_init();
 	//printf("kernel starts at 0x%x%x\n", (uint32_t) ((uint64_t)&_start >> 32), (uint32_t) ((uint64_t)&_start & 0xffffffff));
 	if(magic != MULTIBOOT_BOOTLOADER_MAGIC) {
-		printf("Please load the kernel with a multiboot compliant bootloader!\n", (unsigned) magic);
+		printf("Please load the kernel with a multiboot compliant bootloader!\n");
 		return;
 	}
 	multiboot mboot(mbi);
