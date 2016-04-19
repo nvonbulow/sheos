@@ -21,8 +21,8 @@
           </df>
           <in>kernel.cpp</in>
           <in>multiboot_info.cpp</in>
-          <in>tty.c</in>
-          <in>vga.c</in>
+          <in>tty.cpp</in>
+          <in>vga.cpp</in>
         </df>
         <df name="libc">
           <df name="include">
@@ -33,9 +33,9 @@
             <in>string.h</in>
             <in>time.h</in>
           </df>
-          <in>stdio.c</in>
-          <in>stdlib.c</in>
-          <in>string.c</in>
+          <in>stdio.cpp</in>
+          <in>stdlib.cpp</in>
+          <in>string.cpp</in>
         </df>
         <df name="linker">
         </df>
@@ -100,6 +100,7 @@
           <runcommandpicklistitem>make -f Makefile run</runcommandpicklistitem>
         </runcommandpicklist>
         <runcommand>make -f Makefile run</runcommand>
+        <arguments>-f Makefile run</arguments>
         <rundir>.</rundir>
         <buildfirst>false</buildfirst>
         <terminal-type>0</terminal-type>

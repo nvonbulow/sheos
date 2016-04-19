@@ -6,7 +6,7 @@
 extern "C" {
 #endif
 
-char* itoa(int value, char* str, int radix);
+    char* itoa(int value, char* str, int radix);
 
 #ifdef __cplusplus
 }

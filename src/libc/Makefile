@@ -1,4 +1,4 @@
-OBJECTS = string.o stdio.o stdlib.o
+OBJECTS = string.o stdlib.o stdio.o
 
 all: libc.a
 

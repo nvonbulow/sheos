@@ -8,7 +8,7 @@
 #error "You are not building the kernel correctly."
 #endif
 
-extern void* _start;
+using namespace kernel;
 
 void print_memory_map(multiboot_info_t* mbi) {
 	multiboot_memory_map_t* mmap = (multiboot_memory_map_t*) mbi->mmap_addr;
@@ -43,8 +43,8 @@ void print_memory_map(multiboot_info_t* mbi) {
 }
 
 extern "C" void kernel_main(unsigned long magic, multiboot_info_t* mbi) {
-	tty_init();
-	//printf("kernel starts at 0x%x%x\n", (uint32_t) ((uint64_t)&_start >> 32), (uint32_t) ((uint64_t)&_start & 0xffffffff));
+
+	tty::init();
 	if(magic != MULTIBOOT_BOOTLOADER_MAGIC) {
 		printf("Please load the kernel with a multiboot compliant bootloader!\n");
 		return;
@@ -53,4 +53,5 @@ extern "C" void kernel_main(unsigned long magic, multiboot_info_t* mbi) {
 	if(mboot.has_memory_map()) {
 		print_memory_map(mbi);
 	}
+	
 }

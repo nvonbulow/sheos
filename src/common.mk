@@ -6,12 +6,16 @@ SYSROOT_INCLUDE_FILES = $(shell find "$(BASE_DIR)/usr/include" -name "*.h" -type
 DEFINES := __IKERNEL__
 DEFINES_PARAMS = $(foreach d, $(DEFINES), -D$d)
 
+DEBUG_PARAMS = -ggdb
+
 LIBS += gcc
 LIBS_PARAMS = $(foreach d, $(LIBS), -l$d)
 
-INCLUDES := "$(BASE_DIR)/multiboot"
+INCLUDES := "$(BASE_DIR)/multiboot" "$(BASE_DIR)/usr/include"
 INCLUDES_PARAMS = $(foreach d, $(INCLUDES), -I$d)
 
+# For some reason, using sysroot with g++ causes problems with nested namespaces
+# Just use it with the linker so it can find the libraries
 SYSROOT_FLAGS = --sysroot="$(BASE_DIR)" -isystem=/usr/include
 
 WARNING_FLAGS = -Wno-write-strings -Wall -Wextra
@@ -19,10 +23,10 @@ WARNING_FLAGS = -Wno-write-strings -Wall -Wextra
 SUBDIRS = $(shell find . -mindepth 2 -maxdepth 2 -name Makefile -printf "%h\n" | uniq)
 
 CC := $(ARCH)-gcc
-CC_FLAGS := $(SYSROOT_FLAGS) $(DEFINES_PARAMS) $(INCLUDES_PARAMS) -std=gnu11 -ffreestanding -O2 $(WARNING_FLAGS)
+CC_FLAGS := $(DEFINES_PARAMS) $(INCLUDES_PARAMS) -std=gnu11 -ffreestanding -O2 $(WARNING_FLAGS)
 
 CXX := $(ARCH)-g++
-CXX_FLAGS := $(SYSROOT_FLAGS) $(DEFINES_PARAMS) $(INCLUDES_PARAMS) -std=gnu++11 -ffreestanding -O2 -fno-exceptions -fno-rtti $(WARNING_FLAGS)
+CXX_FLAGS := $(DEFINES_PARAMS) $(INCLUDES_PARAMS) -std=gnu++11 -ffreestanding -O2 -fno-exceptions -fno-rtti $(WARNING_FLAGS)
 
 LD := $(ARCH)-gcc
 LD_FLAGS := $(SYSROOT_FLAGS) -fbuiltin -ffreestanding -O2 -nostdlib $(LIBS_PARAMS)

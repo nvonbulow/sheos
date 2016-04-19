@@ -9,13 +9,8 @@
         <df name="kernel">
           <in>kernel.cpp</in>
           <in>multiboot_info.cpp</in>
-          <in>tty.c</in>
-          <in>vga.c</in>
-        </df>
-        <df name="libc">
-          <in>stdio.c</in>
-          <in>stdlib.c</in>
-          <in>string.c</in>
+          <in>tty.cpp</in>
+          <in>vga.cpp</in>
         </df>
       </df>
     </df>
@@ -81,15 +76,9 @@
       </item>
       <item path="src/kernel/multiboot_info.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/kernel/tty.c" ex="false" tool="0" flavor2="0">
+      <item path="src/kernel/tty.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/kernel/vga.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="src/libc/stdio.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="src/libc/stdlib.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="src/libc/string.c" ex="false" tool="0" flavor2="0">
+      <item path="src/kernel/vga.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
   </confs>
