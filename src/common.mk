@@ -23,10 +23,10 @@ WARNING_FLAGS = -Wno-write-strings -Wall -Wextra
 SUBDIRS = $(shell find . -mindepth 2 -maxdepth 2 -name Makefile -printf "%h\n" | uniq)
 
 CC := $(ARCH)-gcc
-CC_FLAGS := $(DEFINES_PARAMS) $(INCLUDES_PARAMS) -std=gnu11 -ffreestanding -O2 $(WARNING_FLAGS)
+CC_FLAGS := $(DEFINES_PARAMS) $(INCLUDES_PARAMS) -std=gnu11 -ffreestanding -O2 $(WARNING_FLAGS) $(DEBUG_PARAMS)
 
 CXX := $(ARCH)-g++
-CXX_FLAGS := $(DEFINES_PARAMS) $(INCLUDES_PARAMS) -std=gnu++11 -ffreestanding -O2 -fno-exceptions -fno-rtti $(WARNING_FLAGS)
+CXX_FLAGS := $(DEFINES_PARAMS) $(INCLUDES_PARAMS) -std=gnu++11 -ffreestanding -O2 -fno-exceptions -fno-rtti $(WARNING_FLAGS) $(DEBUG_PARAMS)
 
 LD := $(ARCH)-gcc
 LD_FLAGS := $(SYSROOT_FLAGS) -fbuiltin -ffreestanding -O2 -nostdlib $(LIBS_PARAMS)
