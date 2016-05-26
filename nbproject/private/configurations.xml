@@ -9,18 +9,27 @@
       <df name="src">
         <df name="boot">
           <in>boot.s</in>
+          <in>crti.s</in>
+          <in>crtn.s</in>
         </df>
         <df name="kernel">
           <df name="include">
             <df name="kernel">
               <in>asm.h</in>
+              <in>bits.h</in>
+              <in>gdt.h</in>
+              <in>memman.h</in>
               <in>multiboot_info.h</in>
+              <in>paging.h</in>
               <in>tty.h</in>
               <in>vga.h</in>
             </df>
           </df>
+          <in>gdt.cpp</in>
           <in>kernel.cpp</in>
+          <in>memman.cpp</in>
           <in>multiboot_info.cpp</in>
+          <in>paging.cpp</in>
           <in>tty.cpp</in>
           <in>vga.cpp</in>
         </df>
@@ -44,7 +53,11 @@
         <df name="include">
           <df name="kernel">
             <in>asm.h</in>
+            <in>bits.h</in>
+            <in>gdt.h</in>
+            <in>memman.h</in>
             <in>multiboot_info.h</in>
+            <in>paging.h</in>
             <in>tty.h</in>
             <in>vga.h</in>
           </df>
@@ -87,6 +100,7 @@
         </gdb_interceptlist>
         <gdb_options>
           <DebugOptions>
+            <option name="symbol_file" value="C:\Users\nick\Desktop\krnl\src\kernel.elf"/>
           </DebugOptions>
         </gdb_options>
         <gdb_buildfirst gdb_buildfirst_overriden="false" gdb_buildfirst_old="false"/>

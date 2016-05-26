@@ -1,6 +1,3 @@
-AS := $(ARCH)-as
-AS_FLAGS := -I$(BASE_DIR)/multiboot
-
 SYSROOT_INCLUDE_FILES = $(shell find "$(BASE_DIR)/usr/include" -name "*.h" -type f -print)
 
 DEFINES := __IKERNEL__
@@ -22,14 +19,24 @@ WARNING_FLAGS = -Wno-write-strings -Wall -Wextra
 
 SUBDIRS = $(shell find . -mindepth 2 -maxdepth 2 -name Makefile -printf "%h\n" | uniq)
 
+AS := $(ARCH)-as
+AS_FLAGS := -I$(BASE_DIR)/multiboot $(DEBUG_PARAMS)
+
+x86_64_FLAGS = -mcmodel=large -mno-red-zone -mno-mmx -mno-sse -mno-sse2 -fpic
+i686_FLAGS = -fpic
+
 CC := $(ARCH)-gcc
-CC_FLAGS := $(DEFINES_PARAMS) $(INCLUDES_PARAMS) -std=gnu11 -ffreestanding -O2 $(WARNING_FLAGS) $(DEBUG_PARAMS)
+CC_FLAGS := $(DEFINES_PARAMS) $(INCLUDES_PARAMS) $($(PLATFORM)_FLAGS) -std=gnu11 -ffreestanding -O2 $(WARNING_FLAGS) $(DEBUG_PARAMS)
 
 CXX := $(ARCH)-g++
-CXX_FLAGS := $(DEFINES_PARAMS) $(INCLUDES_PARAMS) -std=gnu++11 -ffreestanding -O2 -fno-exceptions -fno-rtti $(WARNING_FLAGS) $(DEBUG_PARAMS)
+CXX_FLAGS := $(DEFINES_PARAMS) $(INCLUDES_PARAMS) $($(PLATFORM)_FLAGS) -std=gnu++11 -ffreestanding -O2 -fno-exceptions -fno-rtti $(WARNING_FLAGS) $(DEBUG_PARAMS)
 
 LD := $(ARCH)-gcc
 LD_FLAGS := $(SYSROOT_FLAGS) -fbuiltin -ffreestanding -O2 -nostdlib $(LIBS_PARAMS)
+	
+CRTBEGIN_OBJ := $(shell $(CC) $(CFLAGS) -print-file-name=crtbegin.o)
+CRTEND_OBJ:= $(shell $(CC) $(CFLAGS) -print-file-name=crtend.o)
+CRT_OBJS := $(CRTBEGIN_OBJ) $(CRTEND_OBJ)
 
 AR := $(ARCH)-ar
 AR_FLAGS := 

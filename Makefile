@@ -1,23 +1,29 @@
-export ARCH = i686-elf
-export QEMU_ARCH = i386
-export QEMU_PREFIX = qemu-system-
-export QEMU = $(QEMU_PREFIX)$(QEMU_ARCH)
+export PLATFORM = x86_64
+export ARCH = $(PLATFORM)-elf
+QEMU_ARCH = i386
+QEMU_PREFIX = qemu-system-
+QEMU = $(QEMU_PREFIX)$(QEMU_ARCH)
+GDB = $(ARCH)-gdb
+
+EXECUTABLE = src/kernel.elf
 
 export BASE_DIR := $(shell pwd)
 
 all:
 	make -C src
 
-run: all
-	$(QEMU) -kernel src/kernel.elf
-	rm trace*
+run: debug
+	#$(QEMU) -kernel $(EXECUTABLE)
+	#rm trace*
 
 debug: all
+	trap '' SIGINT
 	$(QEMU) -kernel src/kernel.elf -s -S
+	#$(GDB) --symbols=$(EXECUTABLE) -ex="target remote localhost:1234" -q --tui
 	rm trace*
 
 strip: all
-	$(ARCH)-strip src/kernel.elf
+	$(ARCH)-strip $(EXECUTABLE)
 	
 clean:
 	find src -name "*.o" -type f -exec rm {} \;

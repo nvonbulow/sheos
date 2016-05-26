@@ -5,10 +5,23 @@
       <df name="src">
         <df name="boot">
           <in>boot.s</in>
+          <in>crti.s</in>
+          <in>crtn.s</in>
         </df>
         <df name="kernel">
+          <df name="include">
+            <df name="kernel">
+              <in>bits.h</in>
+              <in>gdt.h</in>
+              <in>memman.h</in>
+              <in>paging.h</in>
+            </df>
+          </df>
+          <in>gdt.cpp</in>
           <in>kernel.cpp</in>
+          <in>memman.cpp</in>
           <in>multiboot_info.cpp</in>
+          <in>paging.cpp</in>
           <in>tty.cpp</in>
           <in>vga.cpp</in>
         </df>
@@ -41,7 +54,7 @@
           <buildCommandWorkingDir>.</buildCommandWorkingDir>
           <buildCommand>${MAKE} -f Makefile</buildCommand>
           <cleanCommand>${MAKE} -f Makefile clean</cleanCommand>
-          <executablePath></executablePath>
+          <executablePath>src/kernel.elf</executablePath>
           <cTool>
             <standard>10</standard>
             <incDir>
@@ -72,9 +85,27 @@
       </makefileType>
       <item path="src/boot/boot.s" ex="false" tool="4" flavor2="0">
       </item>
+      <item path="src/boot/crti.s" ex="false" tool="4" flavor2="0">
+      </item>
+      <item path="src/boot/crtn.s" ex="false" tool="4" flavor2="0">
+      </item>
+      <item path="src/kernel/gdt.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/kernel/include/kernel/bits.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/kernel/include/kernel/gdt.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/kernel/include/kernel/memman.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/kernel/include/kernel/paging.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/kernel/kernel.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/kernel/memman.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/kernel/multiboot_info.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/kernel/paging.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/kernel/tty.cpp" ex="false" tool="1" flavor2="0">
       </item>

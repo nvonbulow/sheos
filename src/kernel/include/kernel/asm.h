@@ -116,4 +116,17 @@ static inline void _set_msr(uint32_t msr, uint32_t low, uint32_t high) {
                  );
 }
 
+static inline void _cli() {
+    asm volatile(
+                 "cli" : :
+    );
+}
+
+static inline void _sti() {
+    asm volatile(
+                 "sti" : :
+    );
+}
+
+
 #endif //__KERNEL_ASM_H__

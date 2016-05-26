@@ -4,7 +4,7 @@ all: subdirs kernel.elf
 	
 export COMMON_MK = $(shell pwd)/common.mk
 
-LINKER = linker/linker.ld
+LINKER = linker/$(PLATFORM).ld
 
 OBJECTS := 
 
@@ -27,4 +27,4 @@ sysroot: $(INCLUDE_FILES)
 include common.mk
 
 kernel.elf: $(OBJECTS) $(LINKER)
-	$(LD) -T $(LINKER) -o$@ $(OBJECTS) $(LD_FLAGS)
+	$(LD) -T $(LINKER) -o$@ $(CRTBEGIN_OBJ) $(OBJECTS) $(CRTEND_OBJ) $(LD_FLAGS)

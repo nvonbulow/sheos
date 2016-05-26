@@ -1,6 +1,8 @@
 #include <kernel/tty.h>
 #include <kernel/multiboot_info.h>
 #include <kernel/asm.h>
+#include <kernel/gdt.h>
+#include <kernel/bits.h>
 #include <stdio.h>
 #include <multiboot.h>
 
@@ -17,8 +19,8 @@ void print_memory_map(multiboot_info_t* mbi) {
 	printf("memory map located at 0x%x; %d entries\n", mmap, mmap_length);
 	
 	for(mmap = (multiboot_memory_map_t*) mbi->mmap_addr;
-			(uint32_t) mmap < mbi->mmap_addr + mbi->mmap_length;
-			mmap = (multiboot_memory_map_t*) ((uint32_t) mmap + mmap->size + sizeof(mmap->size))) {
+			(uintptr_t) mmap < mbi->mmap_addr + mbi->mmap_length;
+			mmap = (multiboot_memory_map_t*) ((uintptr_t) mmap + mmap->size + sizeof(mmap->size))) {
 		
 		//uint32_t entry_size = mmap->size;
 		uint64_t entry_addr = mmap->addr;
@@ -42,7 +44,13 @@ void print_memory_map(multiboot_info_t* mbi) {
 	}
 }
 
+void print_entry(kernel::memory::gdt_entry& entry) {
+	printf("Entry equals 0x%x%x\n", get_bits(entry.get_entry(), 32, 32),
+		 get_bits(entry.get_entry(), 0, 32));
+}
+
 extern "C" void kernel_main(unsigned long magic, multiboot_info_t* mbi) {
+	
 
 	tty::init();
 	if(magic != MULTIBOOT_BOOTLOADER_MAGIC) {
