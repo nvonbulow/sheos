@@ -1,36 +1,38 @@
 #include <kernel/vga.h>
 #include <stddef.h>
+#include <stdint.h>
 
 #ifndef __KERNEL_TTY_H__
 #define __KERNEL_TTY_H__
 
-//The number of columns
-#define VGA_WIDTH 80
-//The number of rows
-#define VGA_HEIGHT 25
+namespace kernel {
+    namespace tty {
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+        //Prints a single character to the VGA buffer
+        char putchar(const char c);
 
-//Prints a single character to the tty screen
-char tty_putchar(const char c);
+        //Prints a null terminated string to the VGA buffer
+        void puts(const char* str);
 
-//Prints a whole string to the tty buffer
-void tty_puts(const char* str);
+        //Changes a single character in the VGA buffer
+        void putcharat(const char c, vga::ColorEntry color, size_t row, size_t column);
 
-//Change a single character in the buffer
-void tty_putcharat(const char c, vga_color color, size_t row, size_t column);
+        //The characters printed from here on out will be this color
+        void set_color(vga::Color foreground, vga::Color background);
 
-//Set the color of the terminal from here on out
-void tty_set_color(vga_color color);
+        //Initializes the tty screen
+        void init();
 
-void tty_init();
+        //Clearing and initializing the buffer are exactly the same thing
 
-#define tty_clear tty_init
+        static inline void clear() {
+            init();
+        }
 
-#ifdef __cplusplus
+        //Changes where the buffer pointer points to
+        void set_cursor(size_t row, size_t column);
+
+    }
 }
-#endif
 
 #endif //__KERNEL_TTY_H__

@@ -11,7 +11,7 @@
 void putchar(const char c) {
 #ifdef __IKERNEL__
 
-	tty_putchar(c);
+	kernel::tty::putchar(c);
 
 #else //__IKERNEL__
 
@@ -21,7 +21,7 @@ void putchar(const char c) {
 void puts(const char* str) {
 #ifdef __IKERNEL__
 
-	tty_puts(str);
+	kernel::tty::puts(str);
 
 #else //__IKERNEL__
 
@@ -29,7 +29,7 @@ void puts(const char* str) {
 }
 
 void _print(const char* str, size_t length) {
-	for(size_t i = 0; i < length; i++) {
+	for(size_t i = 0;i < length;i++) {
 		putchar(str[i]);
 	}
 }
@@ -41,18 +41,18 @@ void print(const char* str) {
 int printf(const char* __restrict format, ...) {
 	va_list parameters;
 	va_start(parameters, format);
- 
+
 	int written = 0;
 	size_t amount;
 	bool rejected_bad_specifier = false;
-	
+
 	char i2str[17];
-	
+
 	while(*format != '\0') {
 		if(*format != '%') {
-		print_c:
+print_c:
 			amount = 1;
-			while (format[amount] && format[amount] != '%') {
+			while(format[amount] && format[amount] != '%') {
 				amount++;
 			}
 			_print(format, amount);
@@ -60,26 +60,26 @@ int printf(const char* __restrict format, ...) {
 			written += amount;
 			continue;
 		}
- 
+
 		const char* format_begun_at = format;
- 
-		if (*(++format) == '%') {
+
+		if(*(++format) == '%') {
 			goto print_c;
 		}
- 
-		if (rejected_bad_specifier) {
-		incomprehensible_conversion:
+
+		if(rejected_bad_specifier) {
+incomprehensible_conversion:
 			rejected_bad_specifier = true;
 			format = format_begun_at;
 			goto print_c;
 		}
- 
+
 		if(*format == 'c') {
 			format++;
 			char c = (char) va_arg(parameters, int /* char promotes to int */);
 			_print(&c, sizeof(c));
 		}
-		else if (*format == 's') {
+		else if(*format == 's') {
 			format++;
 			const char* s = va_arg(parameters, const char*);
 			_print(s, strlen(s));
@@ -100,8 +100,8 @@ int printf(const char* __restrict format, ...) {
 			goto incomprehensible_conversion;
 		}
 	}
- 
+
 	va_end(parameters);
- 
+
 	return written;
 }

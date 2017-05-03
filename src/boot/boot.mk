@@ -1,1 +1,1 @@
-OBJECTS := $(OBJECTS) boot/boot.o
+OBJECTS += boot/$(PLATFORM)/boot.o boot/$(PLATFORM)/crti.o boot/$(PLATFORM)/crtn.o

@@ -1,0 +1,23 @@
+make -C src
+make[1]: Entering directory '/cygdrive/c/Users/nick/Desktop/krnl/src'
+mkdir -p /cygdrive/c/Users/nick/Desktop/krnl/usr/include
+mkdir -p /cygdrive/c/Users/nick/Desktop/krnl/usr/lib
+cp -R  ./kernel/include/*  ./libc/include/* /cygdrive/c/Users/nick/Desktop/krnl/usr/include
+tar -cf sysroot ./kernel/include/kernel/asm.h ./kernel/include/kernel/multiboot_info.h ./kernel/include/kernel/tty.h ./kernel/include/kernel/vga.h ./libc/include/assert.h ./libc/include/math.h ./libc/include/stdio.h ./libc/include/stdlib.h ./libc/include/string.h ./libc/include/time.h
+g
+make -C libc all
+make[2]: Entering directory '/cygdrive/c/Users/nick/Desktop/krnl/src/libc'
+i686-elf-gcc -c --sysroot="/cygdrive/c/Users/nick/Desktop/krnl" -isystem=/usr/include  -D__IKERNEL__  -I"/cygdrive/c/Users/nick/Desktop/krnl/multiboot" -std=gnu11 -ffreestanding -O2 -Wno-write-strings -Wall -Wextra string.c -ostring.o
+i686-elf-gcc -c --sysroot="/cygdrive/c/Users/nick/Desktop/krnl" -isystem=/usr/include  -D__IKERNEL__  -I"/cygdrive/c/Users/nick/Desktop/krnl/multiboot" -std=gnu11 -ffreestanding -O2 -Wno-write-strings -Wall -Wextra stdio.c -ostdio.o
+i686-elf-gcc -c --sysroot="/cygdrive/c/Users/nick/Desktop/krnl" -isystem=/usr/include  -D__IKERNEL__  -I"/cygdrive/c/Users/nick/Desktop/krnl/multiboot" -std=gnu11 -ffreestanding -O2 -Wno-write-strings -Wall -Wextra stdlib.c -ostdlib.o
+i686-elf-ar rcs libc.a string.o stdio.o stdlib.o
+mkdir -p /cygdrive/c/Users/nick/Desktop/krnl/usr/lib
+cp libc.a /cygdrive/c/Users/nick/Desktop/krnl/usr/lib
+make[2]: Leaving directory '/cygdrive/c/Users/nick/Desktop/krnl/src/libc'
+i686-elf-as -I/cygdrive/c/Users/nick/Desktop/krnl/multiboot boot/boot.s -oboot/boot.o
+i686-elf-g++ -c --sysroot="/cygdrive/c/Users/nick/Desktop/krnl" -isystem=/usr/include  -D__IKERNEL__  -I"/cygdrive/c/Users/nick/Desktop/krnl/multiboot" -std=gnu++0x -ffreestanding -O2 -fno-exceptions -fno-rtti -Wno-write-strings -Wall -Wextra kernel/kernel.cpp -okernel/kernel.o
+i686-elf-gcc -c --sysroot="/cygdrive/c/Users/nick/Desktop/krnl" -isystem=/usr/include  -D__IKERNEL__  -I"/cygdrive/c/Users/nick/Desktop/krnl/multiboot" -std=gnu11 -ffreestanding -O2 -Wno-write-strings -Wall -Wextra kernel/tty.c -okernel/tty.o
+i686-elf-g++ -c --sysroot="/cygdrive/c/Users/nick/Desktop/krnl" -isystem=/usr/include  -D__IKERNEL__  -I"/cygdrive/c/Users/nick/Desktop/krnl/multiboot" -std=gnu++0x -ffreestanding -O2 -fno-exceptions -fno-rtti -Wno-write-strings -Wall -Wextra kernel/multiboot_info.cpp -okernel/multiboot_info.o
+i686-elf-gcc -c --sysroot="/cygdrive/c/Users/nick/Desktop/krnl" -isystem=/usr/include  -D__IKERNEL__  -I"/cygdrive/c/Users/nick/Desktop/krnl/multiboot" -std=gnu11 -ffreestanding -O2 -Wno-write-strings -Wall -Wextra kernel/vga.c -okernel/vga.o
+i686-elf-gcc -T linker/linker.ld -okernel.elf  boot/boot.o kernel/kernel.o kernel/tty.o kernel/multiboot_info.o kernel/vga.o --sysroot="/cygdrive/c/Users/nick/Desktop/krnl" -isystem=/usr/include -fbuiltin -ffreestanding -O2 -nostdlib  -lc  -lgcc
+make[1]: Leaving directory '/cygdrive/c/Users/nick/Desktop/krnl/src'
